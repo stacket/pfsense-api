@@ -80,7 +80,7 @@ class APIServicesDHCPdUpdate extends APIModel {
                 $start_ip = ip2long(gen_subnetv4($if_conf["ipaddr"], $if_conf["subnet"]));
                 $end_ip = ip2long($this->initial_data["range_to"]);
                 # Ensure our range_from is within our available range
-                if ($ip !== $gateway_ip and $ip > $start_ip and $ip < $end_ip) {
+                if ($ip !== $gateway_ip and $ip >= $start_ip and $ip <= $end_ip) {
                     $this->validated_data["range"]["from"] = $this->initial_data["range_from"];
                 } else {
                     $this->errors[] = APIResponse\get(2022);
@@ -101,7 +101,7 @@ class APIServicesDHCPdUpdate extends APIModel {
                 $start_ip = ip2long($this->validated_data["range_from"]);
                 $end_ip = ip2long(gen_subnetv4_max($if_conf["ipaddr"], $if_conf["subnet"]));
                 # Ensure our range_to is within our available range
-                if ($ip !== $gateway_ip and $ip > $start_ip and $ip < $end_ip) {
+                if ($ip !== $gateway_ip and $ip >= $start_ip and $ip <= $end_ip) {
                     $this->validated_data["range"]["to"] = $this->initial_data["range_to"];
                 } else {
                     $this->errors[] = APIResponse\get(2025);
